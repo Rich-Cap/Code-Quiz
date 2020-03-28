@@ -1,3 +1,15 @@
-#quiz{
+#intro{
 	text-align: center;
+}
+#quiz{
+	align-content: left;
+}
+.buttons{
+	list-style-type: none;
+	padding-top: 30px;
+	padding-left: 0px;
+}
+.btn{
+	background-color: rgb(223, 213, 75);
+	margin-top: 10px;
 }
