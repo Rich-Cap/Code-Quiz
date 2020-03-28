@@ -4,12 +4,30 @@
 #quiz{
 	align-content: left;
 }
-.buttons{
+.buttonsList{
 	list-style-type: none;
 	padding-top: 30px;
 	padding-left: 0px;
 }
-.btn{
-	background-color: rgb(223, 213, 75);
+.ans{
+	background-color: rgb(245, 236, 106);
+	width: 200px;
 	margin-top: 10px;
+	padding: 5px 10px;
+	border-radius: 15px;
+	border-color: rgb(245, 236, 106)
+}
+.ans:hover{
+	background-color: rgb(228, 187, 3);
+	border-color: rgb(142, 143, 255);
+}
+.ans:active{
+	background-color: rgb(70, 55, 211);
+	color: white;
+}
+.highscores{
+	width: auto;
+	background-color: wheat;
+	padding: 5px;
+	margin-bottom: 5px;
 }

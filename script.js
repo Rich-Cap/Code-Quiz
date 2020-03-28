@@ -1,6 +1,7 @@
 // Create variables to DOM
 var scores = "highscores.html"
 var questions = "questions.html"
+var home = "index.html"
 
 // Build Timer to start
 
@@ -41,11 +42,17 @@ $(document).ready(function(){
 
 
 	// Add to Highscores
-	$("#highscores").on("click",function(){
+	$("#viewscores").on("click",function(){
 		$(location).attr("href", scores);
 	});
-
-
+	// Start Over
+	$("#Home").on("click",function(){
+		$(location).attr("href", home);
+	});
+	// Clear Scores
+	$("#Clear").on("click",function(){
+		$(".scores-list").empty();
+	});
 
 });
 
