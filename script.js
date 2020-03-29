@@ -3,6 +3,22 @@ var scores = "highscores.html"
 var questions = "questions.html"
 var home = "index.html"
 
+// Assign Questions variable
+
+var questions = [{
+    question: "Inside which HTML element do we put JavaScript?",
+    choices: ["<scripting>", "<javascript>", "<js>", "<script>"],
+    correctAnswer: 3
+}, {
+    question: "Which event occurs when the user clicks on an HTML element?",
+    choices: ["onchange", "onmouseclick", "onclick", "onmouseover"],
+    correctAnswer: 2
+}, {
+    question: "Which operator is used to assign a value to a variable?",
+    choices: ["*", "=", "+", "x"],
+    correctAnswer: 1
+}];
+
 // Build Timer to start
 
 var timer = 600;
@@ -23,7 +39,7 @@ function startTimer(){
 	}, 1000);
 }
 
-// Build Questions variable
+
 
 // var questions = {
 // 	question: "What is 2 + 2?",
@@ -40,8 +56,7 @@ $(document).ready(function(){
 	});
 
 
-
-	// Add to Highscores
+	// Highscores Button function
 	$("#viewscores").on("click",function(){
 		$(location).attr("href", scores);
 	});
