@@ -3,28 +3,8 @@ var scores = "highscores.html"
 var questionsPage = "questions.html"
 var home = "index.html"
 
-// Assign Questions variable
-var questions = [{
-    question: "Inside which HTML element do we put JavaScript?",
-    choices: ["<scripting>", "<javascript>", "<js>", "<script>"],
-    correctAnswer: 3
-}, {
-    question: "Which event occurs when the user clicks on an HTML element?",
-    choices: ["onchange", "onmouseclick", "onclick", "onmouseover"],
-    correctAnswer: 2
-}, {
-    question: "Which operator is used to assign a value to a variable?",
-    choices: ["*", "=", "+", "x"],
-    correctAnswer: 1
-}];
-
-// Assign variables to function quiz
-var currentQuestion = 0;
-var correctAnswers = 0;
-var quizOver = false;
-
 // Build Timer to start
-var timer = 60;
+var timer = 600;
 var min = 0;
 var sec = 0;
 function startTimer(){
@@ -42,30 +22,100 @@ function startTimer(){
 	}, 1000);
 }
 
-// Display Questions
-function displayCurrentQuestion() {
-    var question = questions[currentQuestion].question;
-    var questionClass = $(document).find(".quizContainer > .question");
-    var choiceList = $(document).find(".quizContainer > .choiceList");
-    var numChoices = questions[currentQuestion].choices.length;
+	// Assign variables to function quiz
+	var currentQuestion = 0;
+	var correctAnswers = 0;
+	var quizOver = false;
 
-    // Set the questionClass text to the current question
-    $(questionClass).text(question);
-
-    // Remove all current <li> elements (if any)
-    $(choiceList).find("li").remove();
-
-    var choice;
-    for (i = 0; i < numChoices; i++) {
-        choice = questions[currentQuestion].choices[i];
-        $('<li><input type="radio" value=' + i + ' name="dynradio" />' + choice + '</li>').appendTo(choiceList);
-    }
-}
-
+	// Assign Questions variable
+	var questions = [{
+		question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+		choices: ["JavaScript", "terminal/bash", "for loops", "console log"],
+		correctAnswer: 3
+	}, {
+		question: "Which event occurs when the user clicks on an HTML element?",
+		choices: ["onchange", "onmouseclick", "onclick", "onmouseover"],
+		correctAnswer: 2
+	}, {
+		question: "Which operator is used to assign a value to a variable?",
+		choices: ["*", "=", "+", "x"],
+		correctAnswer: 1
+	}];
 
 $(document).ready(function(){
+		  // Display the first question
+		  displayCurrentQuestion();
+		  $(this).find(".quizMessage").hide();
+		
+	  // On clicking next, display the next question
+	  $(this).find(".liList").on("click", function () {
+		if (!quizOver) {
+  
+			// value = this.value();
+		
+				if (this.value == questions[currentQuestion].correctAnswer) {
+					correctAnswers++;
+				}
+  
+				currentQuestion++; // Since we have already displayed the first question on DOM ready
+				if (currentQuestion < questions.length) {
+					displayCurrentQuestion();
+				} else {
+					displayScore();
+					//                    $(document).find(".nextButton").toggle();
+					//                    $(document).find(".playAgainButton").toggle();
+					// Change the text in the next button to ask if user wants to play again
+					// $(document).find(".nextButton").text("Play Again?");
+					quizOver = true;
+				}
+			
+		} else { // quiz is over and clicked the next button (which now displays 'Play Again?'
+			quizOver = false;
+			
+			resetQuiz();
+			displayCurrentQuestion();
+			hideScore();
+		}
+	});
+	
+});
 
-	// Start Button function
+	// Display Questions function //
+	function displayCurrentQuestion(){
+		var question = questions[currentQuestion].question;
+		var numChoices = questions[currentQuestion].choices.length;
+		var choiceList = $(document).find("#quizContainer > .choiceList");
+		var questionClass = $(document).find("#quizContainer > .question");
+
+		$(questionClass).text(question);
+
+		$(choiceList).find("li").remove();
+
+		var choice;
+		for (i = 0; i < numChoices; i++) {
+			choice = questions[currentQuestion].choices[i];
+			$('<li class="liList" type="button" value=' + i + '>' + choice + '</li>').appendTo(choiceList);
+		};
+	};
+	
+	function resetQuiz() {
+		currentQuestion = 0;
+		correctAnswers = 0;
+		hideScore();
+	  }
+	  
+	  function displayScore() {
+		$(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
+		$(document).find(".quizContainer > .result").show();
+	  }
+	  
+	  function hideScore() {
+		$(document).find(".result").hide();
+	  }
+
+
+
+	// Start Button function //
 	$("#start").on("click",function(){
 		$(location).attr("href", questionsPage);
 	});
@@ -84,8 +134,4 @@ $(document).ready(function(){
 	$("#Clear").on("click",function(){
 		$(".scores-list").empty();
 	});
-
-});
-
-
 

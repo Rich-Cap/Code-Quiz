@@ -4,12 +4,10 @@
 #quiz{
 	align-content: left;
 }
-.buttonsList{
+.liList{
 	list-style-type: none;
 	padding-top: 30px;
 	padding-left: 0px;
-}
-.ans{
 	background-color: rgb(245, 236, 106);
 	width: 200px;
 	margin-top: 10px;
@@ -17,11 +15,11 @@
 	border-radius: 15px;
 	border-color: rgb(245, 236, 106)
 }
-.ans:hover{
+.liList:hover{
 	background-color: rgb(228, 187, 3);
 	border-color: rgb(142, 143, 255);
 }
-.ans:active{
+.liList:focus{
 	background-color: rgb(70, 55, 211);
 	color: white;
 }
@@ -30,4 +28,34 @@
 	background-color: wheat;
 	padding: 5px;
 	margin-bottom: 5px;
+}
+#quizContainer{
+	background-color: rgb(247, 247, 247);
+	width: 50%;
+	margin-top: 20px;
+	padding: 20px 20px;
+}
+.nextButton {
+    box-shadow: 3px 3px 5px #888;
+    border-radius: 6px;
+    width: 150px;
+    height: 40px;
+    text-align: center;
+    background-color: lightgrey;
+    /*clear: both;*/
+    color: red;
+    font-family:'Rokkitt', serif;
+    position: relative;
+    margin: auto;
+    padding-top: 20px;
+}
+.quizMessage {
+    background-color: peachpuff;
+    border-radius: 6px;
+    width: 30%;
+    margin: auto;
+    text-align: center;
+    padding: 2px;
+    font-family:'Rokkitt', serif;
+    color: red;
 }
