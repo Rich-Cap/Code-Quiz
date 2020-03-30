@@ -6,20 +6,25 @@
 }
 .liList{
 	list-style-type: none;
+	margin: auto;
+}
+.nextButton{
 	padding-top: 30px;
 	padding-left: 0px;
 	background-color: rgb(245, 236, 106);
 	width: 200px;
-	margin-top: 10px;
+	margin-top: 20px;
 	padding: 5px 10px;
 	border-radius: 15px;
-	border-color: rgb(245, 236, 106)
+	border-color: rgb(245, 236, 106);
+	text-align: center;
+	align-self: center;
 }
-.liList:hover{
+.nextButton:hover{
 	background-color: rgb(228, 187, 3);
 	border-color: rgb(142, 143, 255);
 }
-.liList:focus{
+.nextButton:active{
 	background-color: rgb(70, 55, 211);
 	color: white;
 }
@@ -35,20 +40,6 @@
 	margin-top: 20px;
 	padding: 20px 20px;
 }
-.nextButton {
-    box-shadow: 3px 3px 5px #888;
-    border-radius: 6px;
-    width: 150px;
-    height: 40px;
-    text-align: center;
-    background-color: lightgrey;
-    /*clear: both;*/
-    color: red;
-    font-family:'Rokkitt', serif;
-    position: relative;
-    margin: auto;
-    padding-top: 20px;
-}
 .quizMessage {
     background-color: peachpuff;
     border-radius: 6px;
@@ -58,4 +49,17 @@
     padding: 2px;
     font-family:'Rokkitt', serif;
     color: red;
+}
+input[type=button] {
+    border: 0px;
+    width: 20px;
+    height: 2em;
+}
+.question{
+	font-weight: bold;
+}
+.quizMessage{
+	background-color: white;
+	color: black;
+	margin-top: 10px;
 }

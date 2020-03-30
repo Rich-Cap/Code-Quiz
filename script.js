@@ -3,25 +3,24 @@ var scores = "highscores.html"
 var questionsPage = "questions.html"
 var home = "index.html"
 
-// Build Timer to start
-var timer = 600;
-var min = 0;
-var sec = 0;
-function startTimer(){
-	min=parseInt(timer/60);
-	sec=parseInt(timer%60);
-
-	if(timer<1){
-		window.location="highscores.html";
+	// Build Timer to start
+	var timer = 60;
+	var min = 0;
+	var sec = 0;
+	function startTimer(){
+		min=parseInt(timer/60);
+		sec=parseInt(timer%60);
+	
+		if(timer<1){
+			window.location="highscores.html";
+		}
+	
+		document.getElementById("time").innerHTML = "Time Left: " + min + "m " + sec + "s";
+		timer--;
+		setTimeout(function(){
+			startTimer();
+		}, 1000);
 	}
-
-	document.getElementById("time").innerHTML = "Time Left: " + min + "m " + sec + "s";
-	timer--;
-	setTimeout(function(){
-		startTimer();
-	}, 1000);
-}
-
 	// Assign variables to function quiz
 	var currentQuestion = 0;
 	var correctAnswers = 0;
@@ -43,35 +42,45 @@ function startTimer(){
 	}];
 
 $(document).ready(function(){
-		  // Display the first question
-		  displayCurrentQuestion();
-		  $(this).find(".quizMessage").hide();
+		// Display the first question
+		displayCurrentQuestion();
+		$(this).find(".quizMessage").hide();
 		
-	  // On clicking next, display the next question
-	  $(this).find(".liList").on("click", function () {
+	  // display the next question
+	  $(".nextButton").click(function () {
 		if (!quizOver) {
+
+			var value = $("input[type='radio']:checked").val();
   
-			// value = this.value();
-		
-				if (this.value == questions[currentQuestion].correctAnswer) {
+			if (value == undefined) {
+				console.log("undefined")
+			} else {
+				$(document).find(".quizMessage").hide();
+  
+				if (value == questions[currentQuestion].correctAnswer) {
 					correctAnswers++;
+					console.log("right");
+					$(".quizMessage").text("Right!").show();
+				} else {
+					console.log("wrong");
+					$(".quizMessage").text("Wrong!").show();
 				}
   
 				currentQuestion++; // Since we have already displayed the first question on DOM ready
+				console.log(value);
+
 				if (currentQuestion < questions.length) {
 					displayCurrentQuestion();
 				} else {
 					displayScore();
-					//                    $(document).find(".nextButton").toggle();
-					//                    $(document).find(".playAgainButton").toggle();
-					// Change the text in the next button to ask if user wants to play again
-					// $(document).find(".nextButton").text("Play Again?");
+
+					$(document).find(".nextButton").text("Play Again?");
 					quizOver = true;
 				}
-			
+			}
 		} else { // quiz is over and clicked the next button (which now displays 'Play Again?'
 			quizOver = false;
-			
+			$(document).find(".nextButton").text("Question");
 			resetQuiz();
 			displayCurrentQuestion();
 			hideScore();
@@ -94,8 +103,8 @@ $(document).ready(function(){
 		var choice;
 		for (i = 0; i < numChoices; i++) {
 			choice = questions[currentQuestion].choices[i];
-			$('<li class="liList" type="button" value=' + i + '>' + choice + '</li>').appendTo(choiceList);
-		};
+			$('<li class="liList"><input type="radio" value=' + i + '>' + " " + choice + '</li>').appendTo(choiceList);
+		}
 	};
 	
 	function resetQuiz() {
@@ -103,17 +112,14 @@ $(document).ready(function(){
 		correctAnswers = 0;
 		hideScore();
 	  }
-	  
 	  function displayScore() {
-		$(document).find(".quizContainer > .result").text("You scored: " + correctAnswers + " out of: " + questions.length);
-		$(document).find(".quizContainer > .result").show();
+		$(document).find("#quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length);
+		$(document).find("#quizContainer > .result").show();
 	  }
 	  
 	  function hideScore() {
 		$(document).find(".result").hide();
 	  }
-
-
 
 	// Start Button function //
 	$("#start").on("click",function(){
