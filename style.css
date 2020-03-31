@@ -59,7 +59,7 @@ input[type=button] {
 	font-weight: bold;
 }
 .quizMessage{
-	background-color: white;
+	background-color: rgb(247, 247, 247);
 	color: black;
 	margin-top: 10px;
 }

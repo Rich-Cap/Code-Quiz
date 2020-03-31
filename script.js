@@ -3,6 +3,7 @@ var scores = "highscores.html"
 var questionsPage = "questions.html"
 var home = "index.html"
 
+
 	// Build Timer to start
 	var timer = 60;
 	var min = 0;
@@ -25,6 +26,7 @@ var home = "index.html"
 	var currentQuestion = 0;
 	var correctAnswers = 0;
 	var quizOver = false;
+	var highScores = $(".scores-list");
 
 	// Assign Questions variable
 	var questions = [{
@@ -45,6 +47,7 @@ $(document).ready(function(){
 		// Display the first question
 		displayCurrentQuestion();
 		$(this).find(".quizMessage").hide();
+		$(document).find("#quizContainer > #frm1").hide();
 		
 	  // display the next question
 	  $(".nextButton").click(function () {
@@ -72,18 +75,18 @@ $(document).ready(function(){
 				if (currentQuestion < questions.length) {
 					displayCurrentQuestion();
 				} else {
-					displayScore();
-
-					$(document).find(".nextButton").text("Play Again?");
 					quizOver = true;
+					displayScore();
+					$(".nextButton").text("Submit Score?");
+					$("#quizContainer > #frm1").show();
+					$(".nextButton").click(function(){
+						var name = $(this).find("#frm1").val();
+						localStorage.setItem("name", name)
+						window.location = scores;
+						addName();
+					});
 				}
 			}
-		} else { // quiz is over and clicked the next button (which now displays 'Play Again?'
-			quizOver = false;
-			$(document).find(".nextButton").text("Question");
-			resetQuiz();
-			displayCurrentQuestion();
-			hideScore();
 		}
 	});
 	
@@ -113,10 +116,17 @@ $(document).ready(function(){
 		hideScore();
 	  }
 	  function displayScore() {
-		$(document).find("#quizContainer > .result").text("You scored: " + correctAnswers + " out of " + questions.length);
-		$(document).find("#quizContainer > .result").show();
+		var result = $(".result")
+		result.text("You scored: " + correctAnswers + " out of " + questions.length);
+		result.show();
 	  }
-	  
+	  function addName(){
+		$(highScores).prepend('div class="highscores">' + localStorage.getItem("name") + '</div>');
+	  }
+	  function hideForm() {
+		$(document).find("#frm1").hide();
+	  }
+
 	  function hideScore() {
 		$(document).find(".result").hide();
 	  }
